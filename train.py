@@ -241,9 +241,9 @@ Trainer = model.get_default_trainer_class()
 flag = args.dataset
 trainer = Trainer(
     model=model,
-    train_path=f'./datasets/unified/train.{flag}.json',
-    test_path=f'./datasets/unified/test.{flag}.json',
-    valid_path=f'./datasets/unified/valid.{flag}.json',
+    train_path=f'./datasets/unified/train.{flag}.deprel_all.json',
+    test_path=f'./datasets/unified/test.{flag}.deprel_all.json',
+    valid_path=f'./datasets/unified/valid.{flag}.deprel_all.json',
     label_config=args.label_config,
     batch_size=int(args.batch_size),
     tag_form=args.tag_form, num_workers=0,
