@@ -202,6 +202,7 @@ class StackedTwoWayEncoding(nn.Module):
         self.extra_hidden_dim = config.head_emb_dim
         self.n_heads = n_heads
         self.direction = direction
+        self.dep_linear = nn.Linear(config.hidden_dim + 1, config.hidden_dim)
         
         self.layer0 = TwoWayEncoding(
             self.config, n_heads=n_heads, first=True, direction=direction,
@@ -215,9 +216,9 @@ class StackedTwoWayEncoding(nn.Module):
 
     def mid_tags_softened(self, mid_tags):
         # hard_tags = torch.where(mid_tags > 0, 0, 0)
-        # hard_tags = torch.where(mid_tags > 0, 1, mid_tags)
-        # soft_tags = hard_tags + torch.randn(mid_tags.shape).to(mid_tags.device)
-        soft_tags = torch.randn(mid_tags.shape).to(mid_tags.device)
+        hard_tags = torch.where(mid_tags > 0, 1, 0)
+        soft_tags = hard_tags + torch.randn(mid_tags.shape).to(mid_tags.device)
+        # soft_tags = torch.randn(mid_tags.shape).to(mid_tags.device)
         linear = nn.Linear(soft_tags.size(-1),soft_tags.size(-1)).to(mid_tags.device)
         soft_tags = linear(soft_tags)
         return F.softmax(soft_tags, dim=-1).unsqueeze(-1)
@@ -226,20 +227,15 @@ class StackedTwoWayEncoding(nn.Module):
         self, 
         S: torch.Tensor, 
         Tlm: torch.Tensor = None, 
-        masks: torch.Tensor = None
+        masks: torch.Tensor = None,
+        deprels: torch.Tensor = None
     ):
         S_list = []
         T_list = []
         attn_list = []
         
         Tstates = None
-        tmp_s= torch.randn(S.size(0),S.size(1)).to(S.device)
-        tmp_tab = torch.randn(S.size(0),S.size(1),S.size(1)).to(S.device)
-        
-        mid_seq = self.mid_tags_softened(tmp_s)
-
-        mid_tab = self.mid_tags_softened(tmp_tab)
-
+        deprels_logits = self.mid_tags_softened(deprels)
         
         S, attn, T, Tstates = self.layer0(S=S, Tlm=Tlm, Tstates=Tstates, masks=masks)
             
@@ -250,7 +246,7 @@ class StackedTwoWayEncoding(nn.Module):
         for layer in self.layers:
             # print('mid_seq',mid_seq.shape)
             
-            S, attn, T, Tstates = layer(S=S, Tlm=Tlm, Tstates=Tstates, masks=masks, mid_seq=mid_seq, mid_tab=mid_tab)
+            S, attn, T, Tstates = layer(S=S, Tlm=Tlm, Tstates=Tstates, masks=masks, mid_tab=deprels_logits)
             
             S_list.append(S)
             T_list.append(T)
@@ -326,7 +322,7 @@ class JointModel(Tagger):
         inputs['lm_heads'] = lm_heads
         
         ## relation encoding
-        seq_embeddings, tab_embeddings, attns = self.bi_encoding(embeddings, masks=masks, Tlm=lm_heads)
+        seq_embeddings, tab_embeddings, attns = self.bi_encoding(embeddings, masks=masks, Tlm=lm_heads, deprels=inputs['_deprels'].to(masks.device))
         seq_embeddings = seq_embeddings[-1]
         tab_embeddings = tab_embeddings[-1]
         seq_embeddings = self.dropout_layer(seq_embeddings)
