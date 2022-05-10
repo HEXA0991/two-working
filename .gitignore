@@ -2,3 +2,5 @@
 \wv
 __pycache__
 .ipynb_checkpoints
+*.pt
+*.pkl

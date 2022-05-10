@@ -15,6 +15,7 @@ from itertools import combinations, permutations
 
 from .basics import *
 from .base import *
+from data import pad_matrices
 
 
 
@@ -60,6 +61,19 @@ class JointDataLoader(DataLoader):
                 #    print(relations[i_begin, j_begin], relations[j_begin, i_begin])
                 
             item['re_tags'] = relations
+
+            deprels = np.zeros([len(tokens), len(tokens)], dtype='<U32')
+            deprels.fill('O')
+            for i_begin, i_end, j_begin, j_end, rtype in item['deprels']:
+            
+                deprels = self.annotate_relation(deprels, i_begin, i_end, j_begin, j_end, f"fw:{rtype}")
+                
+                # aux annotation
+                if deprels[j_begin, i_begin] == 'O' or deprels[j_begin, i_begin].split(':')[-1] == 'O': 
+                    # make sure we dont have conflicts
+                    deprels = self.annotate_relation(deprels, j_begin, j_end, i_begin, i_end, f"bw:{rtype}")
+
+            item['dep_tags'] = deprels
         
         if self.num_workers == 0:
             pass # does not need warm indexing
@@ -83,15 +97,25 @@ class JointDataLoader(DataLoader):
         matrix[i_begin:i_end, j_begin:j_end] = f"I:{rtype}"
         return matrix
         
+    def deprels_indexing(self, deprels):
+        temp = []
+        for dep in deprels:
+            dep_index = np.where(dep == 'O', 0, 1)
+            temp.append(torch.from_numpy(dep_index))
+        return pad_matrices(temp)
+
+
         
     def _collect_fn(self, batch):
         tokens, ner_tags, re_tags, relations, entities = [], [], [], [], []
+        dep_tags = []
         for item in batch:
             tokens.append(item['tokens'])
             ner_tags.append(item['ner_tags'])
             re_tags.append(item['re_tags'])
             relations.append(item['relations'])
             entities.append(item['entities'])
+            dep_tags.append(item['dep_tags'])
         
         rets = {
             'tokens': tokens,
@@ -99,16 +123,19 @@ class JointDataLoader(DataLoader):
             're_tags': re_tags,
             'relations': relations,
             'entities': entities,
+            'dep_tags': dep_tags,
         }
         
         if self.model is not None:
             tokens = self.model.token_indexing(tokens)
             ner_tags = self.model.ner_tag_indexing(ner_tags)
             re_tags = self.model.re_tag_indexing(re_tags)
+            dep_tags = torch.from_numpy(self.deprels_indexing(dep_tags))
         
             rets['_tokens'] = tokens
             rets['_ner_tags'] = ner_tags
             rets['_re_tags'] = re_tags
+            rets['_deprels'] = dep_tags
         
         return rets
     

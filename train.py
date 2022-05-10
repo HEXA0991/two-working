@@ -21,7 +21,8 @@ import time
 
 from utils import *
 from data import *
-from models.joint_models_original import JointModel
+# from models.joint_models_original import JointModel
+from models.joint_models import JointModel
 from models.base import *
 
 # torch.autograd.set_detect_anomaly(True)
@@ -186,7 +187,7 @@ parser.add_argument('--device',
                     action='store',)
 
 parser.add_argument('--log_path',
-                    default='./log_reproduce.txt', type=none_or_str,
+                    default='./log_deprel_all.txt', type=none_or_str,
                     action='store',)
 
 
