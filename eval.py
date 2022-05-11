@@ -240,6 +240,7 @@ elif args.token_emb_dim > 0 and args.pretrained_wv:
 print("reading data..")
 Trainer = model.get_default_trainer_class()
 flag = args.dataset
+model.load_ckpt('/home/Bio/zhangshiqi/codes/two-working/deprel_all_ckpts_f0.7738/test_conll04')
 trainer = Trainer(
     model=model,
     train_path=f'./datasets/unified/train.{flag}.deprel_all.json',
@@ -257,8 +258,10 @@ trainer = Trainer(
 
 
 # %%capture cap
-print("=== start training ===")
-trainer.train_model(args=args)
+print("=== start eval ===")
+res = trainer.evaluate_model(model=model,test_type='test')
+print(res)
+
 
 
 

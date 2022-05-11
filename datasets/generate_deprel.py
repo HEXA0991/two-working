@@ -7,7 +7,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 nlp = stanza.Pipeline(lang='en', processors='tokenize, pos, lemma, depparse', tokenize_pretokenized=True)
 
 # dataset = 'CoNLL04'
-dataset = 'CoNLL04'
+dataset = 'ADE0'
 train = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/train.{dataset}.json'
 dev = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/valid.{dataset}.json'
 test = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/test.{dataset}.json'
@@ -166,6 +166,7 @@ if __name__ == '__main__':
     # get_lcas(train)
     # get_lcas(dev)
     # get_lcas(test)
+    print(dataset)
     write_deps_all(train)
     write_deps_all(dev)
     write_deps_all(test)

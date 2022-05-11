@@ -17,19 +17,20 @@ import flair
 from flair.embeddings import *
 from flair.data import *
 
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 parser = argparse.ArgumentParser(description='Arguments for training.')
 
 parser.add_argument('--dataset',
-                    default='ACE05',
+                    default='ADE0',
                     action='store',)
 
 parser.add_argument('--model_name',
-                    default='albert-xxlarge-v1',
+                    default='/home/Bio/zhangshiqi/albert-xxlarge-v1',
                     action='store',)
 
 parser.add_argument('--save_path',
-                    default='./wv/lm.emb.pkl',
+                    default='./wv/lm.emb.ade0.pkl',
                     action='store',)
 
 parser.add_argument('--save_attention',
@@ -46,7 +47,7 @@ args = parser.parse_args()
 class BertEmbeddingsWithHeads(BertEmbeddings):
     def __init__(
         self,
-        bert_model_or_path: str = "bert-base-uncased",
+        bert_model_or_path: str = "/home/Bio/zhangshiqi/albert-xxlarge-v1",
         layers: str = "-1,-2,-3,-4",
         pooling_operation: str = "first",
         use_scalar_mix: bool = False,
@@ -59,7 +60,7 @@ class BertEmbeddingsWithHeads(BertEmbeddings):
         :param pooling_operation: how to get from token piece embeddings to token embedding. Either pool them and take
         the average ('mean') or use first word piece embedding as token embedding ('first)
         """
-        super().__init__()
+        super().__init__(bert_model_or_path='/home/Bio/zhangshiqi/albert-xxlarge-v1')
 
         if "distilbert" in bert_model_or_path:
             try:
