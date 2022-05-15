@@ -1,0 +1,329 @@
+[{
+    "tokens": ["The", "Accademia", "di", "Architettura", "di", "Mendrisio", "is", "located", "in", "Switzerland", ".", "The", "Swiss", "legislature", "is", "the", "Federal", "Assembly", "and", "its", "leader", "is", "Johann", "Schneider", "-Ammann", "."],
+    "entities": [
+        [1, 6, "Ent"],
+        [9, 10, "Ent"],
+        [16, 18, "Ent"],
+        [9, 10, "Ent"],
+        [22, 25, "Ent"]
+    ],
+    "relations": [
+        [1, 6, 9, 10, "country"],
+        [9, 10, 16, 18, "legislature"],
+        [9, 10, 22, 25, "leaderName"]
+    ],
+    "deprels": [
+        [2, 3, 0, 1, "det"],
+        [2, 3, 1, 2, "compound"],
+        [7, 8, 2, 3, "nsubj:pass"],
+        [2, 3, 3, 4, "flat"],
+        [5, 6, 4, 5, "compound"],
+        [3, 4, 5, 6, "flat"],
+        [7, 8, 6, 7, "aux:pass"],
+        [9, 10, 8, 9, "case"],
+        [7, 8, 9, 10, "obl"],
+        [7, 8, 10, 11, "punct"],
+        [13, 14, 11, 12, "det"],
+        [13, 14, 12, 13, "amod"],
+        [17, 18, 13, 14, "nsubj"],
+        [17, 18, 14, 15, "cop"],
+        [17, 18, 15, 16, "det"],
+        [17, 18, 16, 17, "amod"],
+        [7, 8, 17, 18, "parataxis"],
+        [22, 23, 18, 19, "cc"],
+        [20, 21, 19, 20, "nmod:poss"],
+        [22, 23, 20, 21, "nsubj"],
+        [22, 23, 21, 22, "cop"],
+        [17, 18, 22, 23, "conj"],
+        [22, 23, 23, 24, "flat"],
+        [22, 23, 24, 25, "flat"],
+        [7, 8, 25, 26, "punct"]
+    ]
+}, {
+    "tokens": ["Johann", "Schneider", "-Ammann", "is", "the", "leader", "of", "Switzerland", "which", "is", "the", "location", "of", "the", "Accademia", "di", "Architettura", "di", "Mendrisio", "in", "the", "city", "of", "Mendrisio", ".", "The", "Accademia", "was", "established", "in", "1996", "and", "has", "600", "students", "and", "100", "academic", "staff", "lead", "by", "Dean", "Mario", "Botta", "."],
+    "entities": [
+        [14, 19, "Ent"],
+        [7, 8, "Ent"],
+        [42, 44, "Ent"],
+        [33, 34, "Ent"],
+        [30, 31, "Ent"],
+        [23, 24, "Ent"],
+        [36, 37, "Ent"],
+        [7, 8, "Ent"],
+        [0, 3, "Ent"]
+    ],
+    "relations": [
+        [14, 19, 7, 8, "country"],
+        [14, 19, 42, 44, "dean"],
+        [14, 19, 33, 34, "numberOfStudents"],
+        [14, 19, 30, 31, "established"],
+        [14, 19, 23, 24, "city"],
+        [14, 19, 36, 37, "academicStaffSize"],
+        [7, 8, 0, 3, "leaderName"]
+    ],
+    "deprels": [
+        [5, 6, 0, 1, "nsubj"],
+        [0, 1, 1, 2, "flat"],
+        [0, 1, 2, 3, "flat"],
+        [5, 6, 3, 4, "cop"],
+        [5, 6, 4, 5, "det"],
+        [7, 8, 6, 7, "case"],
+        [5, 6, 7, 8, "nmod"],
+        [11, 12, 8, 9, "nsubj"],
+        [11, 12, 9, 10, "cop"],
+        [11, 12, 10, 11, "det"],
+        [5, 6, 11, 12, "acl:relcl"],
+        [18, 19, 12, 13, "case"],
+        [18, 19, 13, 14, "det"],
+        [16, 17, 14, 15, "compound"],
+        [16, 17, 15, 16, "compound"],
+        [18, 19, 16, 17, "compound"],
+        [18, 19, 17, 18, "compound"],
+        [11, 12, 18, 19, "nmod"],
+        [21, 22, 19, 20, "case"],
+        [21, 22, 20, 21, "det"],
+        [11, 12, 21, 22, "nmod"],
+        [23, 24, 22, 23, "case"],
+        [21, 22, 23, 24, "nmod"],
+        [5, 6, 24, 25, "punct"],
+        [26, 27, 25, 26, "det"],
+        [28, 29, 26, 27, "nsubj:pass"],
+        [28, 29, 27, 28, "aux:pass"],
+        [5, 6, 28, 29, "parataxis"],
+        [30, 31, 29, 30, "case"],
+        [28, 29, 30, 31, "obl"],
+        [32, 33, 31, 32, "cc"],
+        [28, 29, 32, 33, "conj"],
+        [34, 35, 33, 34, "nummod"],
+        [32, 33, 34, 35, "obj"],
+        [38, 39, 35, 36, "cc"],
+        [38, 39, 36, 37, "nummod"],
+        [38, 39, 37, 38, "amod"],
+        [34, 35, 38, 39, "conj"],
+        [38, 39, 39, 40, "acl"],
+        [41, 42, 40, 41, "case"],
+        [39, 40, 41, 42, "obl"],
+        [41, 42, 42, 43, "flat"],
+        [41, 42, 43, 44, "flat"],
+        [5, 6, 44, 45, "punct"]
+    ]
+}, {
+    "tokens": ["Jorge", "Humberto", "Rodr\u00edguez", "manages", "the", "A.D.", "Isidro", "Metapan", ",", "is", "located", "in", "Metap\u00e1n", ",", "El", "Salvado", ",", "has", "10000", "members", ",", "and", "full", "name", "is", "``", "Asociaci\u00f3n", "Deportiva", "''", "."],
+    "entities": [
+        [5, 7, "Ent"],
+        [0, 3, "Ent"],
+        [25, 26, "Ent"],
+        [18, 19, "Ent"],
+        [5, 7, "Ent"],
+        [25, 29, "Ent"]
+    ],
+    "relations": [
+        [5, 7, 0, 3, "manager"],
+        [5, 7, 25, 26, "ground"],
+        [5, 7, 18, 19, "numberOfMembers"],
+        [5, 7, 25, 29, "fullname"]
+    ],
+    "deprels": [
+        [10, 11, 0, 1, "nsubj:pass"],
+        [0, 1, 1, 2, "flat"],
+        [0, 1, 2, 3, "flat"],
+        [7, 8, 4, 5, "det"],
+        [7, 8, 5, 6, "compound"],
+        [7, 8, 6, 7, "compound"],
+        [3, 4, 7, 8, "obj"],
+        [10, 11, 8, 9, "punct"],
+        [10, 11, 9, 10, "aux:pass"],
+        [3, 4, 10, 11, "conj"],
+        [12, 13, 11, 12, "case"],
+        [10, 11, 12, 13, "obl"],
+        [14, 15, 13, 14, "punct"],
+        [12, 13, 14, 15, "appos"],
+        [14, 15, 15, 16, "flat"],
+        [17, 18, 16, 17, "punct"],
+        [10, 11, 17, 18, "conj"],
+        [19, 20, 18, 19, "nummod"],
+        [17, 18, 19, 20, "obj"],
+        [27, 28, 20, 21, "punct"],
+        [27, 28, 21, 22, "cc"],
+        [23, 24, 22, 23, "amod"],
+        [27, 28, 23, 24, "nsubj"],
+        [27, 28, 24, 25, "cop"],
+        [27, 28, 25, 26, "punct"],
+        [27, 28, 26, 27, "compound"],
+        [17, 18, 27, 28, "conj"],
+        [27, 28, 28, 29, "punct"],
+        [10, 11, 29, 30, "punct"]
+    ]
+}, {
+    "tokens": ["Amsterdam", "airport", "Schipol", "is", "-", "3.3528", "above", "sea", "level", "and", "its", "first", "runway", "is", "known", "as", "Number", "18", "."],
+    "entities": [
+        [0, 1, "Ent"],
+        [17, 18, "Ent"],
+        [0, 1, "Ent"],
+        [4, 6, "Ent"]
+    ],
+    "relations": [
+        [0, 1, 17, 18, "1st_runway_Number"],
+        [0, 1, 4, 6, "elevationAboveTheSeaLevel_(in_metres)"]
+    ],
+    "deprels": [
+        [1, 2, 0, 1, "compound"],
+        [8, 9, 1, 2, "nsubj"],
+        [1, 2, 2, 3, "flat"],
+        [8, 9, 3, 4, "cop"],
+        [8, 9, 4, 5, "punct"],
+        [8, 9, 5, 6, "nummod"],
+        [8, 9, 6, 7, "amod"],
+        [8, 9, 7, 8, "compound"],
+        [14, 15, 9, 10, "cc"],
+        [12, 13, 10, 11, "nmod:poss"],
+        [12, 13, 11, 12, "amod"],
+        [14, 15, 12, 13, "nsubj:pass"],
+        [14, 15, 13, 14, "aux:pass"],
+        [8, 9, 14, 15, "conj"],
+        [16, 17, 15, 16, "case"],
+        [14, 15, 16, 17, "obl"],
+        [16, 17, 17, 18, "nummod"],
+        [8, 9, 18, 19, "punct"]
+    ]
+}, {
+    "tokens": ["Alan", "B", "Miller", "Hall", "(", "which", "was", "inaugurated", "on", "2009", "-", "10", "-", "02", ")", "has", "the", "address", "``", "101", "Ukrop", "Way", "''", "."],
+    "entities": [
+        [0, 1, "Ent"],
+        [18, 19, "Ent"],
+        [0, 1, "Ent"],
+        [18, 23, "Ent"]
+    ],
+    "relations": [
+        [0, 1, 18, 19, "inaugurationDate"],
+        [0, 1, 18, 23, "address"]
+    ],
+    "deprels": [
+        [3, 4, 0, 1, "compound"],
+        [0, 1, 1, 2, "flat"],
+        [0, 1, 2, 3, "flat"],
+        [15, 16, 3, 4, "nsubj"],
+        [7, 8, 4, 5, "punct"],
+        [7, 8, 5, 6, "nsubj:pass"],
+        [7, 8, 6, 7, "aux:pass"],
+        [3, 4, 7, 8, "acl:relcl"],
+        [9, 10, 8, 9, "case"],
+        [7, 8, 9, 10, "obl"],
+        [11, 12, 10, 11, "case"],
+        [9, 10, 11, 12, "nmod"],
+        [13, 14, 12, 13, "case"],
+        [11, 12, 13, 14, "nmod"],
+        [7, 8, 14, 15, "punct"],
+        [17, 18, 16, 17, "det"],
+        [15, 16, 17, 18, "obj"],
+        [21, 22, 18, 19, "punct"],
+        [21, 22, 19, 20, "nummod"],
+        [21, 22, 20, 21, "compound"],
+        [17, 18, 21, 22, "appos"],
+        [21, 22, 22, 23, "punct"],
+        [15, 16, 23, 24, "punct"]
+    ]
+}, {
+    "tokens": ["AZAL", "PFK", "stands", "for", "``", "AZAL", "Pe\u015f\u0259kar", "Futbol", "Klubu", "''", "."],
+    "entities": [
+        [0, 2, "Ent"],
+        [4, 10, "Ent"]
+    ],
+    "relations": [
+        [0, 2, 4, 10, "fullname"]
+    ],
+    "deprels": [
+        [1, 2, 0, 1, "compound"],
+        [2, 3, 1, 2, "nsubj"],
+        [8, 9, 3, 4, "case"],
+        [8, 9, 4, 5, "punct"],
+        [8, 9, 5, 6, "compound"],
+        [8, 9, 6, 7, "compound"],
+        [8, 9, 7, 8, "compound"],
+        [2, 3, 8, 9, "obl"],
+        [8, 9, 9, 10, "punct"],
+        [2, 3, 10, 11, "punct"]
+    ]
+}, {
+    "tokens": ["The", "address", "of", "Alan", "B.", "Miller", "Hall", "is", "``", "101", "Ukrop", "Way", "''", "."],
+    "entities": [
+        [3, 7, "Ent"],
+        [8, 13, "Ent"]
+    ],
+    "relations": [
+        [3, 7, 8, 13, "address"]
+    ],
+    "deprels": [
+        [1, 2, 0, 1, "det"],
+        [11, 12, 1, 2, "nsubj"],
+        [6, 7, 2, 3, "case"],
+        [6, 7, 3, 4, "compound"],
+        [3, 4, 4, 5, "flat"],
+        [3, 4, 5, 6, "flat"],
+        [1, 2, 6, 7, "nmod"],
+        [11, 12, 7, 8, "cop"],
+        [11, 12, 8, 9, "punct"],
+        [11, 12, 9, 10, "nummod"],
+        [11, 12, 10, 11, "compound"],
+        [11, 12, 12, 13, "punct"],
+        [11, 12, 13, 14, "punct"]
+    ]
+}, {
+    "tokens": ["Allama", "Iqbal", "International", "airport", "serves", "and", "is", "located", "in", "the", "city", "of", "Lahore", ",", "Pakistan", ".", "The", "Pakistan", "Civil", "Aviation", "Authority", "operates", "the", "airport", "which", "has", "a", "runway", "named", "``", "18L", "/36", "R", "''", "that", "is", "2900.0", "long", "."],
+    "entities": [
+        [0, 3, "Ent"],
+        [17, 18, "Ent"],
+        [36, 37, "Ent"],
+        [17, 21, "Ent"],
+        [12, 13, "Ent"],
+        [0, 3, "Ent"],
+        [29, 34, "Ent"]
+    ],
+    "relations": [
+        [0, 3, 17, 18, "location"],
+        [0, 3, 36, 37, "runwayLength"],
+        [0, 3, 17, 21, "operatingOrganisation"],
+        [0, 3, 12, 13, "cityServed"],
+        [0, 3, 29, 34, "runwayName"]
+    ],
+    "deprels": [
+        [3, 4, 0, 1, "compound"],
+        [0, 1, 1, 2, "flat"],
+        [3, 4, 2, 3, "amod"],
+        [4, 5, 3, 4, "nsubj"],
+        [7, 8, 5, 6, "cc"],
+        [7, 8, 6, 7, "aux:pass"],
+        [4, 5, 7, 8, "conj"],
+        [10, 11, 8, 9, "case"],
+        [10, 11, 9, 10, "det"],
+        [7, 8, 10, 11, "obl"],
+        [12, 13, 11, 12, "case"],
+        [10, 11, 12, 13, "nmod"],
+        [12, 13, 13, 14, "punct"],
+        [12, 13, 14, 15, "appos"],
+        [4, 5, 15, 16, "punct"],
+        [20, 21, 16, 17, "det"],
+        [20, 21, 17, 18, "compound"],
+        [19, 20, 18, 19, "amod"],
+        [20, 21, 19, 20, "compound"],
+        [21, 22, 20, 21, "nsubj"],
+        [4, 5, 21, 22, "parataxis"],
+        [23, 24, 22, 23, "det"],
+        [21, 22, 23, 24, "obj"],
+        [25, 26, 24, 25, "nsubj"],
+        [23, 24, 25, 26, "acl:relcl"],
+        [27, 28, 26, 27, "det"],
+        [25, 26, 27, 28, "obj"],
+        [27, 28, 28, 29, "acl"],
+        [32, 33, 29, 30, "punct"],
+        [32, 33, 30, 31, "compound"],
+        [30, 31, 31, 32, "nummod"],
+        [28, 29, 32, 33, "xcomp"],
+        [32, 33, 33, 34, "punct"],
+        [37, 38, 34, 35, "nsubj"],
+        [37, 38, 35, 36, "cop"],
+        [37, 38, 36, 37, "nummod"],
+        [27, 28, 37, 38, "acl:relcl"],
+        [4, 5, 38, 39, "punct"]
+    ]
+}]
