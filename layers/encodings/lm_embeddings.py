@@ -247,7 +247,14 @@ class PreEmbeddedLM(nn.Module):
             print(f'{self.lm_emb_path} loaded successfully.')
             print('Note it only supports default options now, i.e.: ')
             print('''  layers='-1,-2,-3,-4', use_scalar_mix=True, pooling_operation="mean"''')
-            
+        elif os.path.isdir(self.lm_emb_path):
+            self.lm_emb_is_file = True
+            self.emb_dict = {}
+            files = os.listdir(self.lm_emb_path)
+            for file in files:
+                with open(self.lm_emb_path + file, 'rb') as f:
+                    self.emb_dict.update(pickle.load(f))
+        
             
     def forward(self, batch_tokens):
         

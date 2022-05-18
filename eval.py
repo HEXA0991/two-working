@@ -22,7 +22,7 @@ import time
 from utils import *
 from data import *
 # from models.joint_models_original import JointModel
-from models.joint_models import JointModel
+from models.joint_models import JointModel, JointModelMacroF1
 from models.base import *
 
 # torch.autograd.set_detect_anomaly(True)
@@ -49,7 +49,7 @@ parser = argparse.ArgumentParser(description='Arguments for training.')
 
 #### Train
 parser.add_argument('--model_class',
-                    default='JointModel',
+                    default='JointModelMacroF1',
                     action='store',)
 
 parser.add_argument('--model_read_ckpt',
@@ -57,15 +57,15 @@ parser.add_argument('--model_read_ckpt',
                     action='store',)
 
 parser.add_argument('--model_write_ckpt',
-                    default='./ckpts/test_conll04', type=none_or_str,
+                    default=None, type=none_or_str,
                     action='store',)
 
 parser.add_argument('--pretrained_wv',
-                    default='./wv/glove.6B.100d.conll04.txt', type=none_or_str,
+                    default='./wv/glove.6B.100d.ade.txt', type=none_or_str,
                     action='store',)
 
 parser.add_argument('--dataset',
-                    default='CoNLL04',
+                    default='ADE0',
                     action='store',)
 
 parser.add_argument('--label_config',
@@ -151,11 +151,11 @@ parser.add_argument('--vocab_file',
                     action='store',)
 
 parser.add_argument('--ner_tag_vocab_size',
-                    default=9, type=int,
+                    default=5, type=int,    # (label * BI + O + Mid) 9conll04
                     action='store',)
 
 parser.add_argument('--re_tag_vocab_size',
-                    default=11, type=int,
+                    default=3, type=int,    # ((label + Dep_To) * fw\bw + O) 11conll04
                     action='store',)
 
 parser.add_argument('--lm_emb_dim',
@@ -163,7 +163,7 @@ parser.add_argument('--lm_emb_dim',
                     action='store',)
 
 parser.add_argument('--lm_emb_path',
-                    default='/home/Bio/zhangshiqi/codes/two-are-better-than-one/wv/albert-xxlarge-v1_lm.emb.pkl', type=str,
+                    default='/home/Bio/zhangshiqi/codes/two-working/wv/lm.emb.ade0.pkl', type=str,
                     action='store',)
 
 parser.add_argument('--head_emb_dim',
@@ -187,7 +187,7 @@ parser.add_argument('--device',
                     action='store',)
 
 parser.add_argument('--log_path',
-                    default='./log_deprel_all.txt', type=none_or_str,
+                    default='./log_test.txt', type=none_or_str,
                     action='store',)
 
 
@@ -240,12 +240,12 @@ elif args.token_emb_dim > 0 and args.pretrained_wv:
 print("reading data..")
 Trainer = model.get_default_trainer_class()
 flag = args.dataset
-model.load_ckpt('/home/Bio/zhangshiqi/codes/two-working/deprel_all_ckpts_f0.7738/test_conll04')
+model.load_ckpt('/home/Bio/zhangshiqi/codes/two-working/ckpts_ade0_macro_two_f0.8295/macro_ade0')
 trainer = Trainer(
     model=model,
-    train_path=f'./datasets/unified/train.{flag}.deprel_all.json',
-    test_path=f'./datasets/unified/test.{flag}.deprel_all.json',
-    valid_path=f'./datasets/unified/valid.{flag}.deprel_all.json',
+    train_path=f'./datasets/ADE/two_deprel_all/train.{flag}.deprel_all.json',
+    test_path=f'./datasets/ADE/two_deprel_all/test.{flag}.deprel_all.json',
+    valid_path=f'./datasets/ADE/two_deprel_all/valid.{flag}.deprel_all.json',
     label_config=args.label_config,
     batch_size=int(args.batch_size),
     tag_form=args.tag_form, num_workers=0,

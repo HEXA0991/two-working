@@ -1,4 +1,5 @@
 import json
+from mimetypes import types_map
 import stanza
 import os
 from tqdm import tqdm
@@ -7,11 +8,11 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 nlp = stanza.Pipeline(lang='en', processors='tokenize, pos, lemma, depparse', tokenize_pretokenized=True)
 
 # dataset = 'CoNLL04'
-dataset = 'ADE0'
-train = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/train.{dataset}.json'
-dev = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/valid.{dataset}.json'
-test = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/test.{dataset}.json'
-prune = 1
+# dataset = 'ADE0'
+# train = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/train.{dataset}.json'
+# dev = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/valid.{dataset}.json'
+# test = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/test.{dataset}.json'
+# prune = 1
 
 def search(pattern, sequence):
     n = len(pattern)
@@ -156,7 +157,7 @@ def write_deps_all(path):
         _, dep_rels_with_type = get_deprel(cont['tokens'])
         deprels = [[x[0] - 1, x[0], x[2] - 1, x[2], x[1]] for x in dep_rels_with_type if x[0] - 1 >= 0]
         cont['deprels'] = deprels
-    new_path = path.strip('.json') + '.deprel_all.json'
+    new_path = '/home/Bio/zhangshiqi/codes/two-working/datasets/SCIERC/deprel_all/' + path.split('/')[-1].strip('.json') + '.deprel_all.json'
     with open(new_path, 'w') as f:
         json.dump(conts, f)
 
@@ -166,7 +167,19 @@ if __name__ == '__main__':
     # get_lcas(train)
     # get_lcas(dev)
     # get_lcas(test)
-    print(dataset)
+    # dataset = 'ADE'
+    # for i in range(10):
+    #     train = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/train.{dataset}{i}.json'
+    #     dev = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/valid.{dataset}{i}.json'
+    #     test = f'/home/Bio/zhangshiqi/codes/two-working/datasets/unified/test.{dataset}{i}.json'
+    #     print(dataset + str(i))
+    #     write_deps_all(train)
+    #     write_deps_all(dev)
+    #     write_deps_all(test)
+    dataset = 'SCIERC'
+    train = f'/home/Bio/zhangshiqi/codes/two-working/datasets/SCIERC/twoed/train.{dataset}.json'
+    dev = f'/home/Bio/zhangshiqi/codes/two-working/datasets/SCIERC/twoed/valid.{dataset}.json'
+    test = f'/home/Bio/zhangshiqi/codes/two-working/datasets/SCIERC/twoed/test.{dataset}.json'
     write_deps_all(train)
     write_deps_all(dev)
     write_deps_all(test)

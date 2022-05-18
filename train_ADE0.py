@@ -22,7 +22,7 @@ import time
 from utils import *
 from data import *
 # from models.joint_models_original import JointModel
-from models.joint_models import JointModel
+from models.joint_models import JointModel, JointModelMacroF1
 from models.base import *
 
 # torch.autograd.set_detect_anomaly(True)
@@ -49,7 +49,7 @@ parser = argparse.ArgumentParser(description='Arguments for training.')
 
 #### Train
 parser.add_argument('--model_class',
-                    default='JointModel',
+                    default='JointModelMacroF1',
                     action='store',)
 
 parser.add_argument('--model_read_ckpt',
@@ -57,7 +57,7 @@ parser.add_argument('--model_read_ckpt',
                     action='store',)
 
 parser.add_argument('--model_write_ckpt',
-                    default='./ckpts/test_ade0', type=none_or_str,
+                    default='./ckpts/macro_ade0', type=none_or_str,
                     action='store',)
 
 parser.add_argument('--pretrained_wv',
@@ -187,7 +187,7 @@ parser.add_argument('--device',
                     action='store',)
 
 parser.add_argument('--log_path',
-                    default='./log_deprel_all_ade0.txt', type=none_or_str,
+                    default='./log_test.txt', type=none_or_str,
                     action='store',)
 
 

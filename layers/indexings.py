@@ -1,3 +1,4 @@
+from asyncio import constants
 import math
 import copy
 import torch
@@ -12,6 +13,7 @@ from itertools import combinations
 
 from utils import *
 from functions import *
+import json
 
 
 def get_tag_indexing(config):
@@ -44,8 +46,20 @@ class Indexing:
             self.update_vocab = False
             self.vocab = {}
             self.inv_vocab = {}
-            with open(vocab_file, 'r', encoding='utf-8') as f:
-                self.vocab = {token.strip():i for i, token in enumerate(f)}
+            if 'rel' in vocab_file:
+                with open(vocab_file, 'r') as f:
+                    conts = json.load(f)[-1]
+                cnt = 1
+                self.vocab = {'O': 0}
+                for cont in conts:
+                    self.vocab['I:fw:' + cont] = cnt
+                    cnt += 1
+                    self.vocab['I:bw:' + cont] = cnt
+                    cnt += 1
+                
+            else:
+                with open(vocab_file, 'r', encoding='utf-8') as f:
+                    self.vocab = {token.strip():i for i, token in enumerate(f)}
                 
     def update_inv_vocab(self):
         if len(self.vocab) != len(self.inv_vocab):

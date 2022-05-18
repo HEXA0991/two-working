@@ -1,4 +1,4 @@
-Tue May 10 19:49:16 2022
+Fri May 13 20:06:49 2022
 JointModel 
 epoch: 1 / 299	global_steps: 500 loss: 22566.269386291504
 >> test entity prec:0.6305, rec:0.7738, f1:0.6949

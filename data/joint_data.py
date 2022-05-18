@@ -36,7 +36,10 @@ class JointDataLoader(DataLoader):
             tokens = item['tokens']
             tags = np.zeros(len(tokens), dtype='<U32')
             tags.fill('O')
-            for i_begin, i_end, etype in item['entities']:
+            for it in item['entities']:
+                i_begin = it[0]
+                i_end = it[1]
+                etype = it[2]
                 tags[i_begin] = f'B-{etype}'
                 tags[i_begin+1 : i_end] = f'I-{etype}'
             
@@ -45,7 +48,10 @@ class JointDataLoader(DataLoader):
             elif tag_form == 'iobes':
                 item['ner_tags'] = BIO2BIOES(tags)
             
-            relations = np.zeros([len(tokens), len(tokens)], dtype='<U32')
+            if 'WebNLG' in json_path:
+                relations = np.zeros([len(tokens), len(tokens)], dtype='<U64')
+            else:
+                relations = np.zeros([len(tokens), len(tokens)], dtype='<U32')
             relations.fill('O')
             
             for i_begin, i_end, j_begin, j_end, rtype in item['relations']:
@@ -267,18 +273,20 @@ class JointTrainer(Trainer):
                     
             if (e_f1 + r_f1_wNER) / 2 > self.max_f1[4]:
                 self.max_f1[4] = (e_f1 + r_f1_wNER) / 2
+                # f.write('new max averaged entity f1 and relation f1 with NER on test!\n\n')
                 print('new max averaged entity f1 and relation f1 with NER on test!')
+            f.write('\n')
             
-            rets = trainer_target.evaluate_model(model, verbose=0, test_type='valid')
-            precision, recall, f1 = rets['entity_p'], rets['entity_r'], rets['entity_f1']
-            print(f">> valid entity prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}")
-            f.write(f">> valid entity prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}\n")
-            precision, recall, f1 = rets['relation_p'], rets['relation_r'], rets['relation_f1']
-            print(f">> valid relation prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}")
-            f.write(f">> valid relation prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}\n")
-            precision, recall, f1 = rets['relation_p_wNER'], rets['relation_r_wNER'], rets['relation_f1_wNER']
-            print(f">> valid relation with NER prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}")
-            f.write(f">> valid relation with NER prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}\n\n")
+            # rets = trainer_target.evaluate_model(model, verbose=0, test_type='valid')
+            # precision, recall, f1 = rets['entity_p'], rets['entity_r'], rets['entity_f1']
+            # print(f">> valid entity prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}")
+            # f.write(f">> valid entity prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}\n")
+            # precision, recall, f1 = rets['relation_p'], rets['relation_r'], rets['relation_f1']
+            # print(f">> valid relation prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}")
+            # f.write(f">> valid relation prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}\n")
+            # precision, recall, f1 = rets['relation_p_wNER'], rets['relation_r_wNER'], rets['relation_f1_wNER']
+            # print(f">> valid relation with NER prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}")
+            # f.write(f">> valid relation with NER prec:{precision:.4f}, rec:{recall:.4f}, f1:{f1:.4f}\n\n")
                 
                 
 class JointTrainerMacroF1(JointTrainer):

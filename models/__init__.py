@@ -42,6 +42,7 @@ class Config:
         warm_steps=0,
         grad_period=1,
         device=torch.device('cuda:0' if torch.cuda.is_available() else 'cpu'),
+        re_vocab_file = None,
         *args, **kargs,
     ):
         self.cased = cased
@@ -70,6 +71,7 @@ class Config:
         self.head_emb_dim = head_emb_dim
         self.warm_steps = warm_steps
         self.grad_period = grad_period
+        self.re_vocab_file = re_vocab_file
         
     def __call__(self, **kargs):
         

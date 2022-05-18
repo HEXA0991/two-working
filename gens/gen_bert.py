@@ -22,7 +22,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 parser = argparse.ArgumentParser(description='Arguments for training.')
 
 parser.add_argument('--dataset',
-                    default='ADE0',
+                    default='SCIERC',
                     action='store',)
 
 parser.add_argument('--model_name',
@@ -30,7 +30,8 @@ parser.add_argument('--model_name',
                     action='store',)
 
 parser.add_argument('--save_path',
-                    default='./wv/lm.emb.ade0.pkl',
+                    default='./wv/scierc_emb/lm.emb.scierc.pkl',
+                    
                     action='store',)
 
 parser.add_argument('--save_attention',
@@ -233,7 +234,7 @@ class BertEmbeddingsWithHeads(BertEmbeddings):
 def form_sentence(tokens):
     s = Sentence()
     for w in tokens:
-        if w == '´' or w == '˚':
+        if w == '´' or w == '˚' or w == '¨':
             s.add_token(Token('-'))
         else:
             s.add_token(Token(w))
@@ -255,11 +256,11 @@ else:
 
 flag = args.dataset
 dataset = []
-with open(f'./datasets/unified/train.{flag}.json') as f:
+with open(f'./datasets/SCIERC/twoed/train.{flag}.json') as f:
     dataset += json.load(f)
-with open(f'./datasets/unified/valid.{flag}.json') as f:
+with open(f'./datasets/SCIERC/twoed/valid.{flag}.json') as f:
     dataset += json.load(f)
-with open(f'./datasets/unified/test.{flag}.json') as f:
+with open(f'./datasets/SCIERC/twoed/test.{flag}.json') as f:
     dataset += json.load(f)
     
     
@@ -275,5 +276,17 @@ for item in tqdm(dataset):
     else:
         bert_emb_dict[tokens] = emb
     
-with open(args.save_path, 'wb') as f:
-    pickle.dump(bert_emb_dict, f)
+# with open(args.save_path, 'wb') as f:
+#     pickle.dump(bert_emb_dict, f)
+
+res = {}
+cnt = 0
+for i, item in tqdm(enumerate(bert_emb_dict.items())):
+    res[item[0]] = item[1]
+    if i % 500 == 0:
+        with open(args.save_path+f'{cnt}', 'wb') as f:
+            pickle.dump(res, f)
+        cnt += 1
+        res = {}
+with open(args.save_path+f'{cnt}', 'ab') as f:
+    pickle.dump(res, f)

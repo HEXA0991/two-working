@@ -273,8 +273,9 @@ class JointModel(Tagger):
         else:
             raise Exception('no such tag form.')
         self.ner_tag_indexing = get_tag_indexing(self.config)
-        self.re_tag_indexing = IndexingMatrix(depth=3) # 2d
-        self.re_tag_indexing.vocab = {'O': 0}
+        self.re_tag_indexing = IndexingMatrix(depth=3, vocab_file=self.config.re_vocab_file) # 2d
+        if self.re_tag_indexing.vocab == {'[PAD]': 0, '[UNK]':1}:
+            self.re_tag_indexing.vocab = {'O': 0}
         
         self.token_embedding = AllEmbedding(self.config)
         self.token_indexing = self.token_embedding.preprocess_sentences
@@ -469,9 +470,14 @@ class JointModel(Tagger):
         
         fw_togglemap = torch.zeros(self.config.re_tag_vocab_size, self.config.re_tag_vocab_size)
         bw_togglemap = torch.zeros(self.config.re_tag_vocab_size, self.config.re_tag_vocab_size)
-        
+        cnt  = 0
+        length = len(self.re_tag_indexing.vocab)
         for head_tag in self.re_tag_indexing.vocab:
+            cnt += 1
             head_id = self.re_tag_indexing.token2idx(head_tag)
+            if len(self.re_tag_indexing.vocab) != length:
+                tmp_tag = head_tag
+                print(tmp_tag)
             if head_tag == 'O' or head_tag.split(':')[-1] == 'O':
                 fw_togglemap[head_id, 0] = 1
                 bw_togglemap[head_id, 0] = 1

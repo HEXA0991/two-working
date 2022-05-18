@@ -1,5 +1,6 @@
 
 import math
+import os
 import copy
 import torch
 import torch.nn as nn
@@ -111,14 +112,21 @@ class AllEmbedding(nn.Module):
         
     def load_pretrained(self, path, freeze=True):
         embedding_matrix = self.token_embedding.cpu().weight.data
-        with open(path, 'r') as f:
-            for line in tqdm(f):
-                line = line.strip().split(' ')
-                token = line[0]
-                vector = np.array([float(x) for x in line[1:]], dtype=np.float32)
-                vector = torch.from_numpy(vector)
-                idx = self.token_indexing.token2idx(token)
-                embedding_matrix[idx] = vector
+        if os.path.isfile(path):
+            with open(path, 'r') as f:
+                for line in tqdm(f):
+                    line = line.strip().split(' ')
+                    if line == ['']:
+                        continue
+                    token = line[0]
+                    vector = np.array([float(x) for x in line[1:]], dtype=np.float32)
+                    vector = torch.from_numpy(vector)
+                    idx = self.token_indexing.token2idx(token)
+                    embedding_matrix[idx] = vector
+        # else:
+        #     files = os.listdir(path)
+        #     cont = []
+        #     # for file in files
         self.token_embedding.weight.data = embedding_matrix.to(self.config.device)
         
         if freeze:
