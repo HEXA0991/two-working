@@ -1,0 +1,128 @@
+Fri May 20 16:23:23 2022
+JointModel 
+epoch: 6 / 299	global_steps: 500 loss: 28123.890716552734
+>> test entity prec:0.7183, rec:0.7915, f1:0.7531
+>> test relation prec:0.5137, rec:0.4431, f1:0.4758
+>> test relation with NER prec:0.4918, rec:0.4242, f1:0.4555
+new max averaged entity f1 and relation f1 on test!
+
+epoch: 12 / 299	global_steps: 1000 loss: 16767.069290161133
+>> test entity prec:0.8499, rec:0.8397, f1:0.8448
+>> test relation prec:0.6422, rec:0.6422, f1:0.6422
+>> test relation with NER prec:0.6232, rec:0.6232, f1:0.6232
+new max averaged entity f1 and relation f1 on test!
+
+epoch: 19 / 299	global_steps: 1500 loss: 8455.195234298706
+>> test entity prec:0.8616, rec:0.8712, f1:0.8664
+>> test relation prec:0.7000, rec:0.6967, f1:0.6983
+>> test relation with NER prec:0.6905, rec:0.6872, f1:0.6888
+new max averaged entity f1 and relation f1 on test!
+
+epoch: 25 / 299	global_steps: 2000 loss: 6029.483771324158
+>> test entity prec:0.8780, rec:0.8675, f1:0.8727
+>> test relation prec:0.7319, rec:0.7180, f1:0.7249
+>> test relation with NER prec:0.7246, rec:0.7109, f1:0.7177
+new max averaged entity f1 and relation f1 on test!
+
+epoch: 32 / 299	global_steps: 2500 loss: 3830.2273297309875
+>> test entity prec:0.8540, rec:0.8730, f1:0.8634
+>> test relation prec:0.6732, rec:0.7322, f1:0.7015
+>> test relation with NER prec:0.6710, rec:0.7299, f1:0.6992
+
+epoch: 38 / 299	global_steps: 3000 loss: 3153.606669187546
+>> test entity prec:0.8660, rec:0.8684, f1:0.8672
+>> test relation prec:0.7455, rec:0.6943, f1:0.7190
+>> test relation with NER prec:0.7379, rec:0.6872, f1:0.7117
+
+epoch: 45 / 299	global_steps: 3500 loss: 2011.6909240484238
+>> test entity prec:0.8947, rec:0.8740, f1:0.8842
+>> test relation prec:0.7551, rec:0.7014, f1:0.7273
+>> test relation with NER prec:0.7474, rec:0.6943, f1:0.7199
+new max averaged entity f1 and relation f1 on test!
+
+epoch: 51 / 299	global_steps: 4000 loss: 2506.174332380295
+>> test entity prec:0.8738, rec:0.8795, f1:0.8767
+>> test relation prec:0.6886, rec:0.7441, f1:0.7153
+>> test relation with NER prec:0.6886, rec:0.7441, f1:0.7153
+
+epoch: 58 / 299	global_steps: 4500 loss: 1849.84801197052
+>> test entity prec:0.9075, rec:0.8916, f1:0.8995
+>> test relation prec:0.7573, rec:0.7393, f1:0.7482
+>> test relation with NER prec:0.7524, rec:0.7346, f1:0.7434
+new max averaged entity f1 and relation f1 on test!
+
+epoch: 64 / 299	global_steps: 5000 loss: 1645.1866669654846
+>> test entity prec:0.8897, rec:0.8897, f1:0.8897
+>> test relation prec:0.7051, rec:0.7536, f1:0.7285
+>> test relation with NER prec:0.7029, rec:0.7512, f1:0.7262
+
+epoch: 71 / 299	global_steps: 5500 loss: 1099.9837530255318
+>> test entity prec:0.8865, rec:0.8906, f1:0.8886
+>> test relation prec:0.7746, rec:0.7085, f1:0.7401
+>> test relation with NER prec:0.7617, rec:0.6967, f1:0.7277
+
+epoch: 77 / 299	global_steps: 6000 loss: 1418.6511725336313
+>> test entity prec:0.8797, rec:0.8879, f1:0.8838
+>> test relation prec:0.7368, rec:0.7299, f1:0.7333
+>> test relation with NER prec:0.7273, rec:0.7204, f1:0.7238
+
+epoch: 84 / 299	global_steps: 6500 loss: 920.0663700699806
+>> test entity prec:0.8807, rec:0.8823, f1:0.8815
+>> test relation prec:0.7592, rec:0.6872, f1:0.7214
+>> test relation with NER prec:0.7539, rec:0.6825, f1:0.7164
+
+epoch: 90 / 299	global_steps: 7000 loss: 1392.4145684540272
+>> test entity prec:0.8855, rec:0.8814, f1:0.8834
+>> test relation prec:0.7738, rec:0.6730, f1:0.7199
+>> test relation with NER prec:0.7684, rec:0.6682, f1:0.7148
+
+epoch: 97 / 299	global_steps: 7500 loss: 987.1954202204943
+>> test entity prec:0.8817, rec:0.8981, f1:0.8898
+>> test relation prec:0.8136, rec:0.6825, f1:0.7423
+>> test relation with NER prec:0.8051, rec:0.6754, f1:0.7345
+
+epoch: 103 / 299	global_steps: 8000 loss: 782.5735889226198
+>> test entity prec:0.8798, rec:0.8888, f1:0.8843
+>> test relation prec:0.8027, rec:0.7038, f1:0.7500
+>> test relation with NER prec:0.8027, rec:0.7038, f1:0.7500
+
+epoch: 110 / 299	global_steps: 8500 loss: 769.3381597101688
+>> test entity prec:0.8993, rec:0.8777, f1:0.8884
+>> test relation prec:0.7766, rec:0.7251, f1:0.7500
+>> test relation with NER prec:0.7741, rec:0.7227, f1:0.7475
+
+epoch: 116 / 299	global_steps: 9000 loss: 633.695935562253
+>> test entity prec:0.8942, rec:0.8777, f1:0.8859
+>> test relation prec:0.7678, rec:0.6896, f1:0.7266
+>> test relation with NER prec:0.7678, rec:0.6896, f1:0.7266
+
+epoch: 123 / 299	global_steps: 9500 loss: 1112.44815117307
+>> test entity prec:0.9071, rec:0.8869, f1:0.8969
+>> test relation prec:0.7828, rec:0.6919, f1:0.7346
+>> test relation with NER prec:0.7748, rec:0.6848, f1:0.7270
+
+epoch: 129 / 299	global_steps: 10000 loss: 549.6578366449103
+>> test entity prec:0.8887, rec:0.8879, f1:0.8883
+>> test relation prec:0.7661, rec:0.7062, f1:0.7349
+>> test relation with NER prec:0.7635, rec:0.7038, f1:0.7324
+
+epoch: 136 / 299	global_steps: 10500 loss: 605.9609667835757
+>> test entity prec:0.8979, rec:0.8888, f1:0.8933
+>> test relation prec:0.7672, rec:0.7417, f1:0.7542
+>> test relation with NER prec:0.7623, rec:0.7370, f1:0.7494
+
+epoch: 142 / 299	global_steps: 11000 loss: 924.4710042672232
+>> test entity prec:0.9014, rec:0.8897, f1:0.8955
+>> test relation prec:0.7874, rec:0.7109, f1:0.7472
+>> test relation with NER prec:0.7874, rec:0.7109, f1:0.7472
+
+epoch: 149 / 299	global_steps: 11500 loss: 900.5600025909953
+>> test entity prec:0.8798, rec:0.8953, f1:0.8875
+>> test relation prec:0.7536, rec:0.7464, f1:0.7500
+>> test relation with NER prec:0.7488, rec:0.7417, f1:0.7452
+
+epoch: 155 / 299	global_steps: 12000 loss: 613.8416125811636
+>> test entity prec:0.9021, rec:0.8879, f1:0.8949
+>> test relation prec:0.7744, rec:0.7322, f1:0.7527
+>> test relation with NER prec:0.7719, rec:0.7299, f1:0.7503
+

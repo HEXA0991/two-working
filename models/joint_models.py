@@ -138,7 +138,18 @@ class SeqEncoding(nn.Module):
         
         return S, attn
     
-    
+
+class DeprelGate(nn.Module):
+    def __init__(self, hidden_dim):
+        super().__init__()
+        self.hidden_dim = hidden_dim
+        self.gate = nn.Linear(self.hidden_dim, self.hidden_dim)
+
+    def forward(self, S1, S2):
+        g = F.sigmoid(self.gate(S1))
+        return torch.mul(g, S1) + torch.mul((1 - g), S2)
+
+
 class TwoWayEncoding(nn.Module):
     
     def __init__(self, config, emb_dim=None, n_heads=8, first=False, direction='B'):
@@ -156,6 +167,9 @@ class TwoWayEncoding(nn.Module):
         self.direction = direction
         self.seq_linear = nn.Linear(self.emb_dim + 1, self.emb_dim)
         self.tab_linear = nn.Linear(self.emb_dim + 1, self.emb_dim)
+
+        self.gcn = gcnlayer(self.hidden_dim, 2)
+        self.gate = DeprelGate(self.hidden_dim)
         
         self.tab_encoding = TabEncoding(
             config=self.config, 
@@ -172,7 +186,8 @@ class TwoWayEncoding(nn.Module):
         Tstates: torch.Tensor = None, 
         masks: torch.Tensor = None,
         mid_seq: torch.Tensor = None,
-        mid_tab: torch.Tensor = None
+        mid_tab: torch.Tensor = None,
+        adjs: torch.Tensor = None
     ):
         if mid_seq is not None:
             S_mid = self.seq_linear(torch.cat([S.clone(), mid_seq], dim=-1))
@@ -187,6 +202,10 @@ class TwoWayEncoding(nn.Module):
             T_mid = T.clone()
         
         S, attn = self.seq_encoding(S=S, T=T_mid, masks=masks)
+        
+        if adjs != None:
+            tmp = self.gcn(S_mid, adjs.float())
+            S = self.gate(S, tmp[0])
         
         return S, attn, T, Tstates
     
@@ -203,6 +222,7 @@ class StackedTwoWayEncoding(nn.Module):
         self.n_heads = n_heads
         self.direction = direction
         self.dep_linear = nn.Linear(config.hidden_dim + 1, config.hidden_dim)
+        self.mid_dropout = nn.Dropout(0.1)
         
         self.layer0 = TwoWayEncoding(
             self.config, n_heads=n_heads, first=True, direction=direction,
@@ -214,14 +234,13 @@ class StackedTwoWayEncoding(nn.Module):
             ) for i in range(self.depth-1)
         ])
 
-    def mid_tags_softened(self, mid_tags):
-        # hard_tags = torch.where(mid_tags > 0, 0, 0)
+    def mid_tags_softened(self, mid_tags, seq):
         hard_tags = torch.where(mid_tags > 0, 1, 0)
-        soft_tags = hard_tags + torch.randn(mid_tags.shape).to(mid_tags.device)
-        # soft_tags = torch.randn(mid_tags.shape).to(mid_tags.device)
-        linear = nn.Linear(soft_tags.size(-1),soft_tags.size(-1)).to(mid_tags.device)
-        soft_tags = linear(soft_tags)
-        return F.softmax(soft_tags, dim=-1).unsqueeze(-1)
+        soft_tags = torch.matmul(seq, seq.permute((0,2,1)))
+        soft_tags = (soft_tags / math.sqrt(self.config.hidden_dim))
+        soft_tags = F.softmax(soft_tags , dim=-1)+ hard_tags
+        soft_tags = self.mid_dropout(soft_tags)
+        return F.softmax(soft_tags, dim=-1).unsqueeze(-1), hard_tags
         
     def forward(
         self, 
@@ -235,7 +254,7 @@ class StackedTwoWayEncoding(nn.Module):
         attn_list = []
         
         Tstates = None
-        deprels_logits = self.mid_tags_softened(deprels)
+        
         
         S, attn, T, Tstates = self.layer0(S=S, Tlm=Tlm, Tstates=Tstates, masks=masks)
             
@@ -245,8 +264,8 @@ class StackedTwoWayEncoding(nn.Module):
         
         for layer in self.layers:
             # print('mid_seq',mid_seq.shape)
-            
-            S, attn, T, Tstates = layer(S=S, Tlm=Tlm, Tstates=Tstates, masks=masks, mid_tab=deprels_logits)
+            deprels_logits, adjs = self.mid_tags_softened(deprels, S)
+            S, attn, T, Tstates = layer(S=S, Tlm=Tlm, Tstates=Tstates, masks=masks, mid_tab=deprels_logits, adjs=adjs)
             
             S_list.append(S)
             T_list.append(T)
