@@ -57,7 +57,7 @@ parser.add_argument('--model_read_ckpt',
                     action='store',)
 
 parser.add_argument('--model_write_ckpt',
-                    default='./ckpts/macro_ade0', type=none_or_str,
+                    default='./ckpts/macro_ade0_ade0_deprelNoRandomRight_gatev2', type=none_or_str,
                     action='store',)
 
 parser.add_argument('--pretrained_wv',
@@ -187,7 +187,7 @@ parser.add_argument('--device',
                     action='store',)
 
 parser.add_argument('--log_path',
-                    default='./log_test.txt', type=none_or_str,
+                    default='./log_ade0_deprelNoRandomRight_gatev2.txt', type=none_or_str,
                     action='store',)
 
 

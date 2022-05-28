@@ -163,15 +163,15 @@ parser.add_argument('--re_tag_vocab_size',
                     action='store',)
 
 parser.add_argument('--lm_emb_dim',
-                    default=4096, type=int,
+                    default=768, type=int, #4096
                     action='store',)
 
 parser.add_argument('--lm_emb_path',
-                    default='./wv/scierc_emb/', type=str,
+                    default='./wv/scierc_emb/lm.emb.scierc-scibert.pkl', type=str,
                     action='store',)
 
 parser.add_argument('--head_emb_dim',
-                    default=768, type=int,
+                    default=144, type=int,  # 768
                     action='store',)
 
 parser.add_argument('--tag_form',
@@ -191,7 +191,7 @@ parser.add_argument('--device',
                     action='store',)
 
 parser.add_argument('--log_path',
-                    default='./log_deprel_all_scierc_micro.txt', type=none_or_str,
+                    default='./log_deprel_all_scierc_micro_scibert.txt', type=none_or_str,
                     action='store',)
 
 

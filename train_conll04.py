@@ -57,7 +57,7 @@ parser.add_argument('--model_read_ckpt',
                     action='store',)
 
 parser.add_argument('--model_write_ckpt',
-                    default='./ckpts/conll04_deprelNoRandomRightImplemented_gatev2', type=none_or_str,
+                    default='./ckpts/conll04_deprelNoRandomRightImplemented_gatev2_reproduce', type=none_or_str,
                     action='store',)
 
 parser.add_argument('--pretrained_wv',
@@ -187,7 +187,7 @@ parser.add_argument('--device',
                     action='store',)
 
 parser.add_argument('--log_path',
-                    default='./log_conll04_deprelNoRandomRightImplemented_gatev2.txt', type=none_or_str,
+                    default='./log_conll04_deprelNoRandomRightImplemented_gatev2_reproduce.txt', type=none_or_str,
                     action='store',)
 
 

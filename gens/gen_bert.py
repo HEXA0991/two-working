@@ -17,7 +17,7 @@ import flair
 from flair.embeddings import *
 from flair.data import *
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 parser = argparse.ArgumentParser(description='Arguments for training.')
 
@@ -26,11 +26,11 @@ parser.add_argument('--dataset',
                     action='store',)
 
 parser.add_argument('--model_name',
-                    default='/home/Bio/zhangshiqi/albert-xxlarge-v1',
+                    default='/home/sda/zhangshiqi/pretrained/scibert_scivocab_uncased',
                     action='store',)
 
 parser.add_argument('--save_path',
-                    default='./wv/scierc_emb/lm.emb.scierc.pkl',
+                    default='./wv/scierc_emb/lm.emb.scierc-scibert.pkl',
                     
                     action='store',)
 
@@ -48,7 +48,7 @@ args = parser.parse_args()
 class BertEmbeddingsWithHeads(BertEmbeddings):
     def __init__(
         self,
-        bert_model_or_path: str = "/home/Bio/zhangshiqi/albert-xxlarge-v1",
+        bert_model_or_path: str = "/home/sda/zhangshiqi/pretrained/scibert_scivocab_uncased",
         layers: str = "-1,-2,-3,-4",
         pooling_operation: str = "first",
         use_scalar_mix: bool = False,
@@ -61,7 +61,7 @@ class BertEmbeddingsWithHeads(BertEmbeddings):
         :param pooling_operation: how to get from token piece embeddings to token embedding. Either pool them and take
         the average ('mean') or use first word piece embedding as token embedding ('first)
         """
-        super().__init__(bert_model_or_path='/home/Bio/zhangshiqi/albert-xxlarge-v1')
+        super().__init__(bert_model_or_path='/home/sda/zhangshiqi/pretrained/scibert_scivocab_uncased')
 
         if "distilbert" in bert_model_or_path:
             try:
@@ -276,17 +276,17 @@ for item in tqdm(dataset):
     else:
         bert_emb_dict[tokens] = emb
     
-# with open(args.save_path, 'wb') as f:
-#     pickle.dump(bert_emb_dict, f)
+with open(args.save_path, 'wb') as f:
+    pickle.dump(bert_emb_dict, f)
 
-res = {}
-cnt = 0
-for i, item in tqdm(enumerate(bert_emb_dict.items())):
-    res[item[0]] = item[1]
-    if i % 500 == 0:
-        with open(args.save_path+f'{cnt}', 'wb') as f:
-            pickle.dump(res, f)
-        cnt += 1
-        res = {}
-with open(args.save_path+f'{cnt}', 'ab') as f:
-    pickle.dump(res, f)
+# res = {}
+# cnt = 0
+# for i, item in tqdm(enumerate(bert_emb_dict.items())):
+#     res[item[0]] = item[1]
+#     if i % 500 == 0:
+#         with open(args.save_path+f'{cnt}', 'wb') as f:
+#             pickle.dump(res, f)
+#         cnt += 1
+#         res = {}
+# with open(args.save_path+f'{cnt}', 'ab') as f:
+#     pickle.dump(res, f)
